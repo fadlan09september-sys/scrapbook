@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scrapbook Cinta Kita 💌</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Neucha&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Palet Warna & Dasar */
+        body {
+            /* Menggunakan font yang lebih lucu/tulisan tangan */
+            font-family: 'Neucha', cursive, 'Arial', sans-serif; 
+            margin: 0;
+            padding: 0;
+            background-color: #FCE4EC; /* Pink Lembut */
+            color: #4A148C;
+            overflow-x: hidden;
+            transition: background-color 0.5s ease;
+        }
+
+        /* Tampilan Konten Utama seperti Kertas */
+        #main-content {
+            background-color:#fdf6f8; /* Warna Putih Pucat/Krem (Kertas Tua) */
+            padding-bottom: 50px;
+        }
+        
+        h1, h2 {
+            font-family: 'Caveat', cursive; /* Font yang lebih tebal untuk judul */
+            font-weight: 700;
+            margin-top: 0;
+        }
+
+        /* Tombol & Input */
+        button, input[type="password"], input[type="text"] {
+            padding: 10px 20px;
+            border-radius: 10px; /* Sedikit lebih kotak untuk kesan kerajinan */
+            border: 3px solid #FF80AB; /* Border yang mencolok */
+            margin: 10px 0;
+            font-size: 18px;
+            cursor: pointer;
+            font-family: 'Neucha', cursive;
+        }
+        button {
+            background-color: #FF80AB; 
+            color: white;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 2px 2px 0px #F06292; /* Efek shadow untuk kesan "stiker" */
+        }
+        button:hover {
+            background-color: #F06292;
+            transform: translate(1px, 1px);
+            box-shadow: 1px 1px 0px #FF80AB;
+        }
+        input[type="password"], input[type="text"] {
+            border: 2px dashed #F8BBD0; /* Border putus-putus */
+            width: 80%;
+            max-width: 300px;
+            text-align: center;
+            background-color: #FFFFFF;
+        }
+
+        /* --- Halaman Login --- */
+
+        .full-screen-center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+            background-color: #F8BBD0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .login-container {
+            background-color: #FFFFFF;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 5px 5px 0px #FF80AB, 10px 10px 0px rgba(0, 0, 0, 0.1); /* Layered shadow lucu */
+            border: 3px solid #FF80AB;
+            transform: scale(1);
+            transition: transform 0.5s ease;
+        }
+        
+        /* Animasi Boneka Beruang - Dibiarkan sama */
+        .bear-animation img {
+            width: 150px; 
+            height: auto;
+            margin-bottom: 20px;
+            animation: pulse 1.5s infinite alternate;
+        }
+
+        @keyframes pulse {
+            from { transform: scale(1) rotate(0deg); }
+            to { transform: scale(1.05) rotate(2deg); }
+        }
+
+        /* --- Konten Utama --- */
+        
+        header, footer, section {
+            padding: 20px;
+            text-align: center;
+        }
+        header h1 {
+            font-size: 3em;
+            text-shadow: 2px 2px #F8BBD0;
+        }
+
+        /* Galeri - Efek Foto Ditempel */
+        #gallery {
+            padding: 50px 20px;
+            background-color: transparent; /* Biarkan warna kertas #FFFDE7 terlihat */
+        }
+
+        .photo-grid img {
+            height: 250px;
+            border: 5px solid white; /* Border putih tipis */
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+            /* Tambahkan rotasi acak untuk efek scrapbook */
+            transform: rotate(calc(var(--r) * 1deg)); 
+            /* Menggunakan custom property, perlu di set di JS jika ingin benar-benar acak */
+            transition: transform 0.3s ease;
+        }
+        /* Set rotasi default (akan diganti JS) */
+        .photo-grid img:nth-child(1) { --r: -3; }
+        .photo-grid img:nth-child(2) { --r: 5; }
+        .photo-grid img:nth-child(3) { --r: -7; }
+        .photo-grid img:nth-child(4) { --r: 2; }
+        
+        .photo-grid img:hover {
+            transform: scale(1.1) rotate(0deg); /* Lurus saat di-hover */
+        }
+        
+        /* Bagian Pesan/Pertanyaan - Efek Note Tempel */
+        .question-box {
+            background-color: #FFEBEE; 
+            padding: 30px;
+            margin: 40px auto;
+            max-width: 700px;
+            /* Border yang dibuat seperti stiker atau kertas robek */
+            border-radius: 10px;
+            border: 2px dashed #FF80AB;
+            box-shadow: 4px 4px 0px #F8BBD0;
+        }
+        
+        .feedback {
+            font-family: 'Caveat', cursive;
+            font-size: 1.2em;
+        }
+        
+        footer p {
+            font-family: 'Neucha', cursive;
+            font-size: 1.1em;
+            padding: 10px;
+        }
+
+        /* --- Animasi Scroll Per Halaman/Section --- */
+        /* Dibiarkan sama */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .scroll-animate.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="bucin-music" loop autoplay>
+        <source src="sound.mp3.mp3" type="audio/mp3">
+        </audio>
+
+    <div id="login-page" class="full-screen-center">
+        <div class="login-container">
+            <div class="bear-animation">
+                <img src="kartun.jpg" alt="Boneka Beruang Lucu">
+                </div>
+            <h2>Selamat Datang, Sayang!</h2>
+            <form id="login-form">
+                <input type="password" id="password" placeholder="Masukkan Kode Rahasia" required>
+                <button type="submit">Masuk ke Halaman</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="main-content" style="display: none;">
+        
+        <header>
+            <h1>Our Sweetest Scrapbook </h1>
+        </header>
+
+        <section id="gallery" class="scroll-animate">
+            <h2> Galery Foto Orang Tersayang</h2>
+            <div class="photo-grid">
+                <img src="bb.jpg" alt="Kenangan 1" loading="lazy">
+                <img src="cantk.jpg" alt="Kenangan 2" loading="lazy">
+                <img src="hahu.jpg" alt="Kenangan 3" loading="lazy">
+                <img src="jlk.jpg" alt="Kenangan 4" loading="lazy">
+            </div>
+        </section>
+        
+        <hr style="border-color: #F8BBD0;">
+
+        <section id="message-1" class="scroll-animate">
+            <h2> Sebuah Surat Kecil</h2>
+            <div class="question-box" style="border: 2px solid #FF80AB; box-shadow: 4px 4px 0px #FFEBEE;">
+                <p style="max-width: 600px; margin: 0 auto; line-height: 1.8;">
+                    Setiap detik bersamamu adalah lembaran baru di buku kenangan kita. Kamu adalah alasan senyumku, dan rumah tempat hatiku berlabuh. Aku mencintaimu lebih dari kata-kata ini bisa ungkapkan.
+                </p>
+            </div>
+        </section>
+
+        <hr style="border-color: #F8BBD0;">
+
+        <section id="question-1" class="scroll-animate">
+            <h2>Tes Memori Kita</h2>
+            <div class="question-box">
+                <p>Kapan tanggal pertama kali kita berdua Berkenalan, Sayang?</p>
+                <input type="text" id="answer-1" class="answer-input" placeholder="Jangan lupa ya xixi">
+                <button onclick="checkAnswer(1, '12-09-2025')">Jawab</button>
+                <div id="feedback-1" class="feedback"></div>
+            </div>
+        </section>
+        
+        <hr style="border-color: #F8BBD0;">
+
+        <section id="message-2" class="scroll-animate">
+            <h2> Catatan Mimpi</h2>
+            <div class="question-box" style="background-color: #F8BBD0; border: 2px dashed white; box-shadow: 4px 4px 0px #FF80AB;">
+                <p style="max-width: 600px; margin: 0 auto; line-height: 1.8;">
+                    Aku tak sabar mewujudkan semua mimpi kita: punya rumah kecil dengan kebun yang indah, anjing lucu, dan liburan tak terencana ke tempat yang dingin. Kamu siap menemaniku, kan?
+                </p>
+            </div>
+        </section>
+
+        <hr style="border-color: #F8BBD0;">
+
+        <section id="question-2" class="scroll-animate">
+            <h2>Quizz</h2>
+            <div class="question-box">
+                <p>Apa makanan yang wajib kamu makan saat sedang sedih?</p>
+                <input type="text" id="answer-2" class="answer-input" placeholder="Hayo Apaa Inget Ga">
+                <button onclick="checkAnswer(2, 'bakso')">Jawab</button>
+                <div id="feedback-2" class="feedback"></div>
+            </div>
+        </section>
+
+        <hr style="border-color: #F8BBD0;">
+
+        <section id="message-3" class="scroll-animate">
+            <h2> Janji Hati</h2>
+            <div class="question-box" style="background-color: #FFEBEE; border: 2px solid #4A148C; box-shadow: 4px 4px 0px #F8BBD0;">
+                <p style="max-width: 600px; margin: 0 auto; line-height: 1.8; font-style: italic;">
+                    Ingat, dalam suka maupun duka, di tengah badai atau pelangi, cintaku padamu takkan pernah berubah. Kamu adalah keajaiban terbesarku. Selamanya milikmu.
+                </p>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2025 Milik Kita Berdua Sayang ❤️</p>
+        </footer>
+
+    </div>
+
+    <script>
+        const correctPassword = "deliandra"; // **PASSWORD LOGIN**
+        const loginForm = document.getElementById('login-form');
+        const loginPage = document.getElementById('login-page');
+        const mainContent = document.getElementById('main-content');
+        const music = document.getElementById('bucin-music');
+
+        // --- Fungsi Login ---
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const inputPassword = document.getElementById('password').value;
+
+            if (inputPassword === correctPassword) {
+                // Berhasil Login
+                loginPage.style.opacity = '0'; 
+                
+                setTimeout(() => {
+                    loginPage.style.display = 'none';
+                    mainContent.style.display = 'block'; 
+                    
+                    music.play().catch(error => {
+                        console.log("Autoplay dicegah.");
+                    });
+
+                    window.addEventListener('scroll', checkScrollAnimation);
+                    window.addEventListener('load', checkScrollAnimation);
+                    checkScrollAnimation(); 
+                }, 500);
+                
+            } else {
+                alert('Kode Rahasia Salah! Coba lagi, Sayang!');
+                document.getElementById('password').value = '';
+            }
+        });
+
+        // --- Fungsi Interaktif Pertanyaan/Kuis ---
+        function checkAnswer(questionNumber, expectedAnswer) {
+            const inputElement = document.getElementById(`answer-${questionNumber}`);
+            const feedbackElement = document.getElementById(`feedback-${questionNumber}`);
+            
+            const userAnswer = inputElement.value.toLowerCase().trim();
+            const expected = expectedAnswer.toLowerCase().trim();
+
+            if (userAnswer === expected) {
+                feedbackElement.style.color = '#388E3C'; 
+                feedbackElement.innerHTML = ' **BENAR!** Kamu memang yang terbaik!';
+            } else {
+                feedbackElement.style.color = '#D32F2F'; 
+                feedbackElement.innerHTML = ` **SALAH!** Jawabannya adalah *${expectedAnswer}*. Lain kali jangan lupa, ya!`;
+            }
+        }
+
+
+        // --- Fungsi Animasi Scroll ---
+        function checkScrollAnimation() {
+            const animatedElements = document.querySelectorAll('.scroll-animate');
+            
+            animatedElements.forEach(el => {
+                const elementTop = el.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+
+                if (elementTop < windowHeight * 0.8) {
+                    el.classList.add('visible');
+                } 
+            });
+        }
+    </script>
+</body>
+</html>
